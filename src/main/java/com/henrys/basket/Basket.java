@@ -21,4 +21,8 @@ public class Basket {
     public LocalDate getCreated() {
         return created;
     }
+
+    public BasketQuery query() {
+        return new BasketQuery(this);
+    }
 }

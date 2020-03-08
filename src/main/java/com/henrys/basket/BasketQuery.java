@@ -5,7 +5,7 @@ import com.henrys.product.Product;
 public class BasketQuery {
     private final Basket basket;
 
-    public BasketQuery(Basket basket) {
+    BasketQuery(Basket basket) {
         this.basket = basket;
     }
 

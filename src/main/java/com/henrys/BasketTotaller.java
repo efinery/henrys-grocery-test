@@ -2,7 +2,6 @@ package com.henrys;
 
 import com.henrys.basket.Basket;
 import com.henrys.basket.BasketFactory;
-import com.henrys.basket.BasketQuery;
 import com.henrys.promotion.DiscountProcessor;
 
 import java.time.LocalDate;
@@ -20,13 +19,9 @@ public class BasketTotaller {
 
     public int total(List<String> productNames, LocalDate date) {
         Basket basket = basketFactory.create(productNames, date);
-        int basketTotal = calulateTotal(basket);
+        int basketTotal = basket.query().total();
         int discountTotal = discountProcessor.calculateDiscounts(basket);
         return basketTotal - discountTotal;
     }
 
-    private int calulateTotal(Basket basket) {
-        BasketQuery basketQuery = new BasketQuery(basket);
-        return basketQuery.total();
-    }
 }
