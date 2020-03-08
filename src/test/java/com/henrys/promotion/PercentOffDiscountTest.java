@@ -19,13 +19,13 @@ public class PercentOffDiscountTest {
     private BasketFactory basketFactory;
 
     @Before
-    public void setUp() throws Exception {
+    public void setUp() {
         productRepository = new ProductRepositoryFactory().create();
         basketFactory = new BasketFactory(productRepository);
     }
 
     @Test
-    public void should_discount_one_apple() throws Exception {
+    public void should_discount_one_apple() {
         List<String> apples = newBasket().withApple().build();
         Basket basket = basketFactory.create(apples, LocalDate.now());
 
@@ -35,7 +35,7 @@ public class PercentOffDiscountTest {
     }
 
     @Test
-    public void should_discount_ten_apples() throws Exception {
+    public void should_discount_ten_apples() {
         List<String> apples = newBasket().withApples(10).build();
         Basket basket = basketFactory.create(apples, LocalDate.now());
 

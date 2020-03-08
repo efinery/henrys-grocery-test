@@ -12,19 +12,19 @@ public class HalfPriceDiscountTest {
     private ProductRepository productRepository;
 
     @Before
-    public void setUp() throws Exception {
+    public void setUp() {
         productRepository = new ProductRepositoryFactory().create();
     }
 
     @Test
-    public void should_discount_one_loaf() throws Exception {
+    public void should_discount_one_loaf() {
         int discount = discountLoaves(1);
 
         assertEquals(40, discount);
     }
 
     @Test
-    public void should_discount_two_loaves() throws Exception {
+    public void should_discount_two_loaves() {
         int discount = discountLoaves(2);
 
         assertEquals(80, discount);

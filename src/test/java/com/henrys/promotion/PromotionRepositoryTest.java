@@ -15,7 +15,7 @@ public class PromotionRepositoryTest {
     private Promotion thisMonth;
 
     @Before
-    public void setUp() throws Exception {
+    public void setUp() {
         thisWeek = new Promotion(now(), now().plusWeeks(1), null);
         thisMonth = new Promotion(
                 now().withDayOfMonth(1),
@@ -27,14 +27,14 @@ public class PromotionRepositoryTest {
     }
 
     @Test
-    public void should_find_no_promotions() throws Exception {
+    public void should_find_no_promotions() {
         List<Promotion> promotions = repository.find(now().plusYears(1));
 
         assertTrue(promotions.isEmpty());
     }
 
     @Test
-    public void should_find_both_promotions() throws Exception {
+    public void should_find_both_promotions() {
         List<Promotion> promotions = repository.find(now());
 
         assertEquals(2, promotions.size());
@@ -43,7 +43,7 @@ public class PromotionRepositoryTest {
     }
 
     @Test
-    public void should_find_this_months_promotion() throws Exception {
+    public void should_find_this_months_promotion() {
         List<Promotion> promotions = repository.find(now().plusWeeks(2));
 
         assertEquals(1, promotions.size());

@@ -10,7 +10,7 @@ import static org.junit.Assert.assertTrue;
 public class PromotionTest {
 
     @Test
-    public void should_not_be_valid_when_current_date_before_promotion_start() throws Exception {
+    public void should_not_be_valid_when_current_date_before_promotion_start() {
         LocalDate today = LocalDate.now();
         LocalDate tomorrow = today.plusDays(1);
         Promotion promotion = new Promotion(today, tomorrow, null);
@@ -19,7 +19,7 @@ public class PromotionTest {
     }
 
     @Test
-    public void should_not_be_valid_when_current_date_after_promotion_end() throws Exception {
+    public void should_not_be_valid_when_current_date_after_promotion_end() {
         LocalDate today = LocalDate.now();
         LocalDate tomorrow = today.plusDays(1);
         Promotion promotion = new Promotion(today, tomorrow, null);
@@ -28,7 +28,7 @@ public class PromotionTest {
     }
 
     @Test
-    public void should_be_valid_when_current_date_same_as_promotion_start() throws Exception {
+    public void should_be_valid_when_current_date_same_as_promotion_start() {
         LocalDate today = LocalDate.now();
         LocalDate tomorrow = today.plusDays(1);
         Promotion promotion = new Promotion(today, tomorrow, null);
@@ -37,7 +37,7 @@ public class PromotionTest {
     }
 
     @Test
-    public void should_be_valid_when_current_date_same_as_promotion_end() throws Exception {
+    public void should_be_valid_when_current_date_same_as_promotion_end() {
         LocalDate today = LocalDate.now();
         LocalDate tomorrow = today.plusDays(1);
         Promotion promotion = new Promotion(today, tomorrow, null);
@@ -46,7 +46,7 @@ public class PromotionTest {
     }
 
     @Test
-    public void should_be_valid_when_current_date_between_promotion_dates() throws Exception {
+    public void should_be_valid_when_current_date_between_promotion_dates() {
         LocalDate today = LocalDate.now();
         LocalDate nextWeek = today.plusWeeks(1);
         Promotion promotion = new Promotion(today, nextWeek, null);
