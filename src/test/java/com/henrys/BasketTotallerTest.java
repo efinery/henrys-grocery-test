@@ -11,8 +11,8 @@ import static com.henrys.product.ProductListBuilder.newBasket;
 import static org.junit.Assert.assertEquals;
 
 public class BasketTotallerTest {
-    private BasketTotaller totaller;
     private final LocalDate today = LocalDate.now();
+    private BasketTotaller totaller;
 
     @Before
     public void setUp() {
@@ -21,27 +21,21 @@ public class BasketTotallerTest {
 
     @Test
     public void should_calculate_one_of_everything() {
-        List<String> products = newBasket().withSoup().withBread().withMilk().withApple().build();
-
-        int total = totaller.total(products, today);
+        int total = price(newBasket().withSoup().withBread().withMilk().withApple(), today);
 
         assertEquals(285, total);
     }
 
     @Test
     public void should_discount_bread_with_2_soup() {
-        List<String> products = newBasket().withSoup(2).withBread().build();
-
-        int total = totaller.total(products, today);
+        int total = price(newBasket().withSoup(2).withBread(), today);
 
         assertEquals(170, total);
     }
 
     @Test
     public void should_discount_apples() {
-        List<String> products = newBasket().withApple().build();
-
-        int total = totaller.total(products, today.plusDays(3));
+        int total = price(newBasket().withApple(), today.plusDays(3));
 
         assertEquals(9, total);
     }
@@ -89,6 +83,34 @@ public class BasketTotallerTest {
                 fiveDaysFromNow);
 
         assertEquals(197, total);
+    }
+
+    @Test
+    public void should_not_discount_apples_before_promotion() {
+        int total = price(newBasket().withApple(), today.plusDays(2));
+
+        assertEquals(10, total);
+    }
+
+    @Test
+    public void should_not_discount_apples_after_promotion() {
+        int total = price(newBasket().withApple(), today.plusMonths(2).withDayOfMonth(1));
+
+        assertEquals(10, total);
+    }
+
+    @Test
+    public void should_not_discount_bread_before_promotion() {
+        int total = price(newBasket().withSoup(2).withBread(), today.minusDays(2));
+
+        assertEquals(210, total);
+    }
+
+    @Test
+    public void should_not_discount_bread_after_promotion() {
+        int total = price(newBasket().withSoup(2).withBread(), today.plusDays(7));
+
+        assertEquals(210, total);
     }
 
     private int price(ProductListBuilder builder, LocalDate createdOn) {
