@@ -11,7 +11,7 @@ public class BasketTotallerFactory {
     public BasketTotaller create() {
         ProductRepository productRepository = new ProductRepositoryFactory().create();
         BasketFactory basketFactory = new BasketFactory(productRepository);
-        PromotionRepository promotionRepository = new PromotionRepositoryFactory().create();
+        PromotionRepository promotionRepository = new PromotionRepositoryFactory(productRepository).create();
         return new BasketTotaller(basketFactory, promotionRepository);
     }
 }

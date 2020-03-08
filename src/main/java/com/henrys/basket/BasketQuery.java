@@ -18,4 +18,10 @@ public class BasketQuery {
 
         return total;
     }
+
+    public int quantity(String productName) {
+        return (int) basket.getProducts().stream()
+                .filter(p -> p.getName().equals(productName))
+                .count();
+    }
 }

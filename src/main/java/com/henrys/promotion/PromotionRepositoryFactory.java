@@ -1,5 +1,7 @@
 package com.henrys.promotion;
 
+import com.henrys.product.ProductRepository;
+
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -7,6 +9,11 @@ import java.util.List;
 import static java.time.LocalDate.now;
 
 public class PromotionRepositoryFactory {
+    private final ProductRepository productRepository;
+
+    public PromotionRepositoryFactory(ProductRepository productRepository) {
+        this.productRepository = productRepository;
+    }
 
     public PromotionRepository create() {
         List<Promotion> promotions = new ArrayList<>();
@@ -15,7 +22,7 @@ public class PromotionRepositoryFactory {
         Promotion halfPriceBreadForTwoSoups = new Promotion(
                 yesterday,
                 yesterday.plusWeeks(1),
-                new HalfPriceBreadWithTwoSoupsPromotionRule());
+                new HalfPriceBreadWithTwoSoupsPromotionRule(productRepository));
 
         Promotion applesTenPercentOff = new Promotion(
                 now().plusDays(3),
