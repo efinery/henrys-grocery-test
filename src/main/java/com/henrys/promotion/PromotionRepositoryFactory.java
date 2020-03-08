@@ -18,24 +18,29 @@ public class PromotionRepositoryFactory {
 
     public PromotionRepository create() {
         List<Promotion> promotions = new ArrayList<>();
+        promotions.add(halfPriceBreadForTwoSoups());
+        promotions.add(applesTenPercentOff());
+        return new PromotionRepository(promotions);
+    }
 
+    private Promotion halfPriceBreadForTwoSoups() {
         LocalDate yesterday = now().minusDays(1);
-        Promotion halfPriceBreadForTwoSoups = new Promotion(
+        return new Promotion(
                 newDateRange()
                         .starting(yesterday)
                         .ending(yesterday.plusWeeks(1))
                         .build(),
                 new HalfPriceBreadWithTwoSoupsPromotionRule(productRepository));
+    }
 
-        Promotion applesTenPercentOff = new Promotion(
+    private Promotion applesTenPercentOff() {
+        LocalDate threeDaysHence = now().plusDays(3);
+        LocalDate endOfFollowingMonth = now().plusMonths(2).withDayOfMonth(1).minusDays(1);
+        return new Promotion(
                 newDateRange()
-                        .starting(now().plusDays(3))
-                        .ending(now().plusMonths(2).withDayOfMonth(1).minusDays(1))
+                        .starting(threeDaysHence)
+                        .ending(endOfFollowingMonth)
                         .build(),
                 new TenPercentOffApplesPromotionRule(productRepository));
-
-        promotions.add(halfPriceBreadForTwoSoups);
-        promotions.add(applesTenPercentOff);
-        return new PromotionRepository(promotions);
     }
 }
