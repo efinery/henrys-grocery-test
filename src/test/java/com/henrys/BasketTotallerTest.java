@@ -1,6 +1,5 @@
 package com.henrys;
 
-import com.henrys.product.NoSuchProductException;
 import com.henrys.product.ProductRepository;
 import com.henrys.product.ProductRepositoryFactory;
 import org.junit.Before;
@@ -10,7 +9,6 @@ import org.junit.Test;
 import java.util.List;
 
 import static com.henrys.product.ProductListBuilder.newBasket;
-import static java.util.Arrays.asList;
 import static org.junit.Assert.assertEquals;
 
 public class BasketTotallerTest {
@@ -29,13 +27,6 @@ public class BasketTotallerTest {
         int total = totaller.total(products);
 
         assertEquals(285, total);
-    }
-
-    @Test(expected = NoSuchProductException.class)
-    public void should_fail_for_unknown_product() throws Exception {
-        List<String> products = asList("unknown");
-
-        totaller.total(products);
     }
 
     @Ignore

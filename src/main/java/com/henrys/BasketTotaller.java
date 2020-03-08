@@ -13,6 +13,10 @@ public class BasketTotaller {
     }
 
     public int total(List<String> productNames) {
+        return calulateTotal(productNames);
+    }
+
+    private int calulateTotal(List<String> productNames) {
         int total = 0;
 
         for (String productName : productNames) {

@@ -40,4 +40,10 @@ public class ProductRepositoryTest {
 
         assertEquals(10, apples.getPriceInPence());
     }
+
+    @Test(expected = NoSuchProductException.class)
+    public void should_fail_for_unknown_product() throws Exception {
+        repository.findByName("unknown");
+    }
+
 }
