@@ -113,6 +113,13 @@ public class BasketTotallerTest {
         assertEquals(210, total);
     }
 
+    @Test
+    public void should_not_apply_multiple_discounts_to_single_loaf_of_bread() {
+        int total = price(newBasket().withSoup(4).withBread(), today);
+
+        assertEquals(300, total);
+    }
+
     private int price(ProductListBuilder builder, LocalDate createdOn) {
         List<String> products = builder.build();
         return totaller.total(products, createdOn);
