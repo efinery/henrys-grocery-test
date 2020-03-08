@@ -13,14 +13,21 @@ public class PromotionRepositoryTest {
     private PromotionRepository repository;
     private Promotion thisWeek;
     private Promotion thisMonth;
+    private PromotionRule thisWeekRule;
+    private PromotionRule thisMonthRule;
 
     @Before
     public void setUp() {
-        thisWeek = new Promotion(now(), now().plusWeeks(1), null);
+        thisWeekRule = (basket, discountCollector) -> {
+        };
+        thisMonthRule = (basket, discountCollector) -> {
+        };
+
+        thisWeek = new Promotion(now(), now().plusWeeks(1), thisWeekRule);
         thisMonth = new Promotion(
                 now().withDayOfMonth(1),
                 now().plusMonths(1).withDayOfMonth(1).minusDays(1),
-                null);
+                thisMonthRule);
 
         List<Promotion> promotions = asList(thisWeek, thisMonth);
         repository = new PromotionRepository(promotions);
@@ -28,26 +35,26 @@ public class PromotionRepositoryTest {
 
     @Test
     public void should_find_no_promotions() {
-        List<Promotion> promotions = repository.find(now().plusYears(1));
+        List<PromotionRule> promotionRules = repository.find(now().plusYears(1));
 
-        assertTrue(promotions.isEmpty());
+        assertTrue(promotionRules.isEmpty());
     }
 
     @Test
     public void should_find_both_promotions() {
-        List<Promotion> promotions = repository.find(now());
+        List<PromotionRule> promotionRules = repository.find(now());
 
-        assertEquals(2, promotions.size());
-        assertSame(thisWeek, promotions.get(0));
-        assertSame(thisMonth, promotions.get(1));
+        assertEquals(2, promotionRules.size());
+        assertSame(thisWeekRule, promotionRules.get(0));
+        assertSame(thisMonthRule, promotionRules.get(1));
     }
 
     @Test
     public void should_find_this_months_promotion() {
-        List<Promotion> promotions = repository.find(now().plusWeeks(2));
+        List<PromotionRule> promotionRules = repository.find(now().plusWeeks(2));
 
-        assertEquals(1, promotions.size());
-        assertSame(thisMonth, promotions.get(0));
+        assertEquals(1, promotionRules.size());
+        assertSame(thisMonthRule, promotionRules.get(0));
     }
 
 }

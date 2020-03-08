@@ -14,9 +14,8 @@ public class DiscountProcessor {
     public int calculateDiscounts(Basket basket) {
         DiscountCollector discountCollector = new DiscountCollector();
 
-        List<Promotion> promotions = promotionRepository.find(basket.getCreated());
-        for (Promotion promotion : promotions) {
-            PromotionRule promotionRule = promotion.getRule();
+        List<PromotionRule> promotionRules = promotionRepository.find(basket.getCreated());
+        for (PromotionRule promotionRule : promotionRules) {
             promotionRule.check(basket, discountCollector);
         }
 

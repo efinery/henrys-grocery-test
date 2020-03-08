@@ -2,7 +2,7 @@ package com.henrys.promotion;
 
 import java.time.LocalDate;
 
-public class Promotion {
+class Promotion {
     private final LocalDate validFrom;
     private final LocalDate validTo;
     private final PromotionRule rule;
@@ -17,7 +17,7 @@ public class Promotion {
         return !current.isBefore(validFrom) && !current.isAfter(validTo);
     }
 
-    public PromotionRule getRule() {
+    PromotionRule getRule() {
         return rule;
     }
 }

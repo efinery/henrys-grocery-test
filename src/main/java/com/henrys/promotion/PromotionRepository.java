@@ -2,7 +2,8 @@ package com.henrys.promotion;
 
 import java.time.LocalDate;
 import java.util.List;
-import java.util.stream.Collectors;
+
+import static java.util.stream.Collectors.toList;
 
 public class PromotionRepository {
     private final List<Promotion> promotions;
@@ -11,9 +12,10 @@ public class PromotionRepository {
         this.promotions = promotions;
     }
 
-    public List<Promotion> find(LocalDate date) {
+    List<PromotionRule> find(LocalDate date) {
         return promotions.stream()
                 .filter(p -> p.isValidFor(date))
-                .collect(Collectors.toList());
+                .map(Promotion::getRule)
+                .collect(toList());
     }
 }
