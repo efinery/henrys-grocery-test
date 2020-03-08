@@ -1,10 +1,10 @@
 package com.henrys.promotion;
 
-import java.util.List;
+import com.henrys.basket.Basket;
 
 public class HalfPriceBreadWithTwoSoupsPromotionRule implements PromotionRule {
     @Override
-    public void check(List<String> products) {
+    public void check(Basket basket) {
 
     }
 }

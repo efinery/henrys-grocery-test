@@ -1,8 +1,8 @@
 package com.henrys.promotion;
 
-import java.util.List;
+import com.henrys.basket.Basket;
 
 public interface PromotionRule {
 
-    void check(List<String> products);
+    void check(Basket basket);
 }

@@ -1,5 +1,6 @@
 package com.henrys;
 
+import com.henrys.basket.BasketFactory;
 import com.henrys.product.ProductRepository;
 import com.henrys.product.ProductRepositoryFactory;
 import com.henrys.promotion.PromotionRepository;
@@ -9,7 +10,8 @@ public class BasketTotallerFactory {
 
     public BasketTotaller create() {
         ProductRepository productRepository = new ProductRepositoryFactory().create();
+        BasketFactory basketFactory = new BasketFactory(productRepository);
         PromotionRepository promotionRepository = new PromotionRepositoryFactory().create();
-        return new BasketTotaller(productRepository, promotionRepository);
+        return new BasketTotaller(basketFactory, promotionRepository);
     }
 }

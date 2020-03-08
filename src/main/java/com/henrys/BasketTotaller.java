@@ -1,7 +1,8 @@
 package com.henrys;
 
+import com.henrys.basket.Basket;
+import com.henrys.basket.BasketFactory;
 import com.henrys.product.Product;
-import com.henrys.product.ProductRepository;
 import com.henrys.promotion.Promotion;
 import com.henrys.promotion.PromotionRepository;
 
@@ -9,28 +10,30 @@ import java.time.LocalDate;
 import java.util.List;
 
 public class BasketTotaller {
-    private final ProductRepository productRepository;
+    private final BasketFactory basketFactory;
     private final PromotionRepository promotionRepository;
 
-    public BasketTotaller(ProductRepository productRepository, PromotionRepository promotionRepository) {
-        this.productRepository = productRepository;
+    public BasketTotaller(BasketFactory basketFactory,
+                          PromotionRepository promotionRepository) {
+        this.basketFactory = basketFactory;
         this.promotionRepository = promotionRepository;
     }
 
     public int total(List<String> productNames, LocalDate date) {
+        Basket basket = basketFactory.create(productNames);
+
         List<Promotion> promotions = promotionRepository.find(date);
         for (Promotion promotion : promotions) {
-            promotion.getRule().check(productNames);
+            promotion.getRule().check(basket);
         }
 
-        return calulateTotal(productNames);
+        return calulateTotal(basket);
     }
 
-    private int calulateTotal(List<String> productNames) {
+    private int calulateTotal(Basket basket) {
         int total = 0;
 
-        for (String productName : productNames) {
-            Product product = productRepository.findByName(productName);
+        for (Product product : basket.getProducts()) {
             total += product.getPriceInPence();
         }
 
