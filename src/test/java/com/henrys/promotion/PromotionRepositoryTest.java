@@ -5,14 +5,13 @@ import org.junit.Test;
 
 import java.util.List;
 
+import static com.henrys.promotion.DateRange.newDateRange;
 import static java.time.LocalDate.now;
 import static java.util.Arrays.asList;
 import static org.junit.Assert.*;
 
 public class PromotionRepositoryTest {
     private PromotionRepository repository;
-    private Promotion thisWeek;
-    private Promotion thisMonth;
     private PromotionRule thisWeekRule;
     private PromotionRule thisMonthRule;
 
@@ -23,13 +22,19 @@ public class PromotionRepositoryTest {
         thisMonthRule = (basket, discountCollector) -> {
         };
 
-        thisWeek = new Promotion(now(), now().plusWeeks(1), thisWeekRule);
-        thisMonth = new Promotion(
-                now().withDayOfMonth(1),
-                now().plusMonths(1).withDayOfMonth(1).minusDays(1),
-                thisMonthRule);
+        DateRange thisWeekRange = newDateRange()
+                .starting(now())
+                .ending(now().plusWeeks(1))
+                .build();
+        Promotion thisWeekPromo = new Promotion(thisWeekRange, thisWeekRule);
 
-        List<Promotion> promotions = asList(thisWeek, thisMonth);
+        DateRange thisMonthRange = newDateRange()
+                .starting(now().withDayOfMonth(1))
+                .ending(now().plusMonths(1).withDayOfMonth(1).minusDays(1))
+                .build();
+        Promotion thisMonthPromo = new Promotion(thisMonthRange, thisMonthRule);
+
+        List<Promotion> promotions = asList(thisWeekPromo, thisMonthPromo);
         repository = new PromotionRepository(promotions);
     }
 
