@@ -1,7 +1,5 @@
 package com.henrys;
 
-import com.henrys.product.ProductRepository;
-import com.henrys.product.ProductRepositoryFactory;
 import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
@@ -16,8 +14,7 @@ public class BasketTotallerTest {
 
     @Before
     public void setUp() throws Exception {
-        ProductRepository productRepository = new ProductRepositoryFactory().create();
-        totaller = new BasketTotaller(productRepository);
+        totaller = new BasketTotallerFactory().create();
     }
 
     @Test
