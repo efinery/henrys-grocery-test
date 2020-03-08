@@ -4,22 +4,17 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class ProductRepositoryFactory {
+    private final Map<String, Product> products = new HashMap<>();
 
     public ProductRepository create() {
-        Map<String, Product> products = new HashMap<>();
-
-        Product soup = new Product("soup", "tin", 65);
-        products.put(soup.getName(), soup);
-
-        Product bread = new Product("bread", "loaf", 80);
-        products.put(bread.getName(), bread);
-
-        Product milk = new Product("milk", "bottle", 130);
-        products.put(milk.getName(), milk);
-
-        Product apples = new Product("apples", "single", 10);
-        products.put(apples.getName(), apples);
-
+        add(new Product("soup", "tin", 65));
+        add(new Product("bread", "loaf", 80));
+        add(new Product("milk", "bottle", 130));
+        add(new Product("apples", "single", 10));
         return new ProductRepository(products);
+    }
+
+    private void add(Product product) {
+        products.put(product.getName(), product);
     }
 }
