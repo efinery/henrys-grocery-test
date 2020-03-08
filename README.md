@@ -8,6 +8,7 @@ Coding test for Industrial Logic
 - For the output I simply show the basket total in pounds and pence.
 - I implemented the Promotions using a PromotionRule interface so the design is more Open/Closed.
 - The HalfPriceDiscount and PercentOffDiscount classes are reusable for possible future Promotions.
+- All scenarios stated in the specification and more are tested in BasketTotallerTest
 
 
 # To run:
