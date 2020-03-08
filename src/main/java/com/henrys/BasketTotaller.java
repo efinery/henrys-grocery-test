@@ -2,7 +2,7 @@ package com.henrys;
 
 import com.henrys.basket.Basket;
 import com.henrys.basket.BasketFactory;
-import com.henrys.product.Product;
+import com.henrys.basket.BasketQuery;
 import com.henrys.promotion.Promotion;
 import com.henrys.promotion.PromotionRepository;
 
@@ -31,12 +31,8 @@ public class BasketTotaller {
     }
 
     private int calulateTotal(Basket basket) {
-        int total = 0;
-
-        for (Product product : basket.getProducts()) {
-            total += product.getPriceInPence();
-        }
-
-        return total;
+        BasketQuery basketQuery = new BasketQuery(basket);
+        return basketQuery.total();
     }
+
 }
