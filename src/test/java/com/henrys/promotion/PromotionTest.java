@@ -13,7 +13,7 @@ public class PromotionTest {
     public void should_not_be_valid_when_current_date_before_promotion_start() throws Exception {
         LocalDate today = LocalDate.now();
         LocalDate tomorrow = today.plusDays(1);
-        Promotion promotion = new Promotion(today, tomorrow);
+        Promotion promotion = new Promotion(today, tomorrow, null);
 
         assertFalse(promotion.isValidFor(today.minusDays(1)));
     }
@@ -22,7 +22,7 @@ public class PromotionTest {
     public void should_not_be_valid_when_current_date_after_promotion_end() throws Exception {
         LocalDate today = LocalDate.now();
         LocalDate tomorrow = today.plusDays(1);
-        Promotion promotion = new Promotion(today, tomorrow);
+        Promotion promotion = new Promotion(today, tomorrow, null);
 
         assertFalse(promotion.isValidFor(today.plusDays(2)));
     }
@@ -31,7 +31,7 @@ public class PromotionTest {
     public void should_be_valid_when_current_date_same_as_promotion_start() throws Exception {
         LocalDate today = LocalDate.now();
         LocalDate tomorrow = today.plusDays(1);
-        Promotion promotion = new Promotion(today, tomorrow);
+        Promotion promotion = new Promotion(today, tomorrow, null);
 
         assertTrue(promotion.isValidFor(today));
     }
@@ -40,7 +40,7 @@ public class PromotionTest {
     public void should_be_valid_when_current_date_same_as_promotion_end() throws Exception {
         LocalDate today = LocalDate.now();
         LocalDate tomorrow = today.plusDays(1);
-        Promotion promotion = new Promotion(today, tomorrow);
+        Promotion promotion = new Promotion(today, tomorrow, null);
 
         assertTrue(promotion.isValidFor(tomorrow));
     }
@@ -49,7 +49,7 @@ public class PromotionTest {
     public void should_be_valid_when_current_date_between_promotion_dates() throws Exception {
         LocalDate today = LocalDate.now();
         LocalDate nextWeek = today.plusWeeks(1);
-        Promotion promotion = new Promotion(today, nextWeek);
+        Promotion promotion = new Promotion(today, nextWeek, null);
 
         assertTrue(promotion.isValidFor(today.plusDays(1)));
     }

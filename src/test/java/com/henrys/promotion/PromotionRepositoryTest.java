@@ -16,11 +16,11 @@ public class PromotionRepositoryTest {
 
     @Before
     public void setUp() throws Exception {
-        thisWeek = new Promotion(now(), now().plusWeeks(1));
+        thisWeek = new Promotion(now(), now().plusWeeks(1), null);
         thisMonth = new Promotion(
                 now().withDayOfMonth(1),
-                now().plusMonths(1).withDayOfMonth(1).minusDays(1)
-        );
+                now().plusMonths(1).withDayOfMonth(1).minusDays(1),
+                null);
 
         List<Promotion> promotions = asList(thisWeek, thisMonth);
         repository = new PromotionRepository(promotions);

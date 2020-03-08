@@ -2,8 +2,10 @@ package com.henrys;
 
 import com.henrys.product.Product;
 import com.henrys.product.ProductRepository;
+import com.henrys.promotion.Promotion;
 import com.henrys.promotion.PromotionRepository;
 
+import java.time.LocalDate;
 import java.util.List;
 
 public class BasketTotaller {
@@ -15,7 +17,12 @@ public class BasketTotaller {
         this.promotionRepository = promotionRepository;
     }
 
-    public int total(List<String> productNames) {
+    public int total(List<String> productNames, LocalDate date) {
+        List<Promotion> promotions = promotionRepository.find(date);
+        for (Promotion promotion : promotions) {
+            promotion.getRule().check(productNames);
+        }
+
         return calulateTotal(productNames);
     }
 

@@ -14,13 +14,13 @@ public class PromotionRepositoryFactory {
         LocalDate yesterday = now().minusDays(1);
         Promotion halfPriceBreadForTwoSoups = new Promotion(
                 yesterday,
-                yesterday.plusWeeks(1)
-        );
+                yesterday.plusWeeks(1),
+                new HalfPriceBreadWithTwoSoupsPromotionRule());
 
         Promotion applesTenPercentOff = new Promotion(
                 now().plusDays(3),
-                now().plusMonths(2).withDayOfMonth(1).minusDays(1)
-        );
+                now().plusMonths(2).withDayOfMonth(1).minusDays(1),
+                null);
 
         promotions.add(halfPriceBreadForTwoSoups);
         promotions.add(applesTenPercentOff);
