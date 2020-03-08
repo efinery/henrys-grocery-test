@@ -1,6 +1,7 @@
 package com.henrys;
 
 import com.henrys.product.ProductListBuilder;
+import com.henrys.view.BasketSummaryVO;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -122,6 +123,7 @@ public class BasketTotallerTest {
 
     private int price(ProductListBuilder builder, LocalDate createdOn) {
         List<String> products = builder.build();
-        return totaller.total(products, createdOn);
+        BasketSummaryVO summaryVO = totaller.total(products, createdOn);
+        return summaryVO.getTotal();
     }
 }

@@ -1,11 +1,12 @@
 package com.henrys;
 
-import java.math.BigDecimal;
+import com.henrys.view.BasketSummaryRenderer;
+import com.henrys.view.BasketSummaryVO;
+
+import java.io.PrintWriter;
 import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.List;
-
-import static java.math.BigDecimal.valueOf;
 
 public class Application {
 
@@ -13,16 +14,11 @@ public class Application {
         List<String> productNames = Arrays.asList(args);
 
         BasketTotaller basketTotaller = new BasketTotallerFactory().create();
-        int total = basketTotaller.total(productNames, LocalDate.now());
+        BasketSummaryVO summaryVO = basketTotaller.total(productNames, LocalDate.now());
 
-        System.out.println("Basket : " + productNames);
-        System.out.println("Total is £" + map(total));
+        try (PrintWriter writer = new PrintWriter(System.out, true)) {
+            BasketSummaryRenderer renderer = new BasketSummaryRenderer(writer);
+            renderer.render(summaryVO);
+        }
     }
-
-    private static BigDecimal map(int pence) {
-        return valueOf(pence)
-                .divide(valueOf(100))
-                .setScale(2);
-    }
-
 }
