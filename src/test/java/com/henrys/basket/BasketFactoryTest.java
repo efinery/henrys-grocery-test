@@ -6,6 +6,7 @@ import com.henrys.product.ProductRepositoryFactory;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import static java.util.Arrays.asList;
@@ -22,7 +23,7 @@ public class BasketFactoryTest {
 
     @Test
     public void create() {
-        Basket basket = factory.create(asList("soup", "milk"));
+        Basket basket = factory.create(asList("soup", "milk"), LocalDate.now());
 
         List<Product> products = basket.getProducts();
         assertEquals("soup", products.get(0).getName());

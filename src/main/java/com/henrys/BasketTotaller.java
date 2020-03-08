@@ -19,9 +19,9 @@ public class BasketTotaller {
     }
 
     public int total(List<String> productNames, LocalDate date) {
-        Basket basket = basketFactory.create(productNames);
+        Basket basket = basketFactory.create(productNames, date);
         int basketTotal = calulateTotal(basket);
-        int discountTotal = discountProcessor.calculateDiscounts(basket, date);
+        int discountTotal = discountProcessor.calculateDiscounts(basket);
         return basketTotal - discountTotal;
     }
 

@@ -8,6 +8,7 @@ import com.henrys.product.ProductRepositoryFactory;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import static com.henrys.product.ProductListBuilder.newBasket;
@@ -26,7 +27,7 @@ public class PercentOffDiscountTest {
     @Test
     public void should_discount_one_apple() throws Exception {
         List<String> apples = newBasket().withApple().build();
-        Basket basket = basketFactory.create(apples);
+        Basket basket = basketFactory.create(apples, LocalDate.now());
 
         int discount = discountApplesByTenPercent(basket);
 
@@ -36,7 +37,7 @@ public class PercentOffDiscountTest {
     @Test
     public void should_discount_ten_apples() throws Exception {
         List<String> apples = newBasket().withApples(10).build();
-        Basket basket = basketFactory.create(apples);
+        Basket basket = basketFactory.create(apples, LocalDate.now());
 
         int discount = discountApplesByTenPercent(basket);
 

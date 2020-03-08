@@ -2,7 +2,6 @@ package com.henrys.promotion;
 
 import com.henrys.basket.Basket;
 
-import java.time.LocalDate;
 import java.util.List;
 
 public class DiscountProcessor {
@@ -12,10 +11,10 @@ public class DiscountProcessor {
         this.promotionRepository = promotionRepository;
     }
 
-    public int calculateDiscounts(Basket basket, LocalDate date) {
+    public int calculateDiscounts(Basket basket) {
         DiscountCollector discountCollector = new DiscountCollector();
 
-        List<Promotion> promotions = promotionRepository.find(date);
+        List<Promotion> promotions = promotionRepository.find(basket.getCreated());
         for (Promotion promotion : promotions) {
             PromotionRule promotionRule = promotion.getRule();
             promotionRule.check(basket, discountCollector);
