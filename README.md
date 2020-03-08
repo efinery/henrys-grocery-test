@@ -4,12 +4,11 @@ Coding test for Industrial Logic
 
 # Implementation Notes
 - I decided to handle money using an int for pence as this seemed like the simplest option.
-- It's not specified what an example input would look like so I assumed it would just be an array of Strings to the main() method.
-- For the output I simply show the basket total in pounds and pence.
+- It's not specified what an example input would look like so I assumed it would just be an array of product Strings to the main() method and using current date. All scenarios involving time manipulation are tested in BasketTotallerTest.
 - I implemented the Promotions using a PromotionRule interface so the design is more Open/Closed.
 - The HalfPriceDiscount and PercentOffDiscount classes are reusable for possible future Promotions.
 - All scenarios stated in the specification and more are tested in BasketTotallerTest
-- Output seemed a bit spare so I added a more receipt-like output.
+- Output shows a basket summary, total discounts, and grand total
 
 
 # Running
