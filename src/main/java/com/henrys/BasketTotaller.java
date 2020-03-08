@@ -3,6 +3,7 @@ package com.henrys;
 import com.henrys.basket.Basket;
 import com.henrys.basket.BasketFactory;
 import com.henrys.basket.BasketQuery;
+import com.henrys.promotion.DiscountCollector;
 import com.henrys.promotion.Promotion;
 import com.henrys.promotion.PromotionRepository;
 
@@ -21,13 +22,16 @@ public class BasketTotaller {
 
     public int total(List<String> productNames, LocalDate date) {
         Basket basket = basketFactory.create(productNames);
+        DiscountCollector discountCollector = new DiscountCollector();
 
         List<Promotion> promotions = promotionRepository.find(date);
         for (Promotion promotion : promotions) {
-            promotion.getRule().check(basket);
+            promotion.getRule().check(basket, discountCollector);
         }
 
-        return calulateTotal(basket);
+        int basketTotal = calulateTotal(basket);
+        int discountTotal = discountCollector.totalDiscount();
+        return basketTotal - discountTotal;
     }
 
     private int calulateTotal(Basket basket) {

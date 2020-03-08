@@ -13,12 +13,13 @@ public class HalfPriceBreadWithTwoSoupsPromotionRule implements PromotionRule {
     }
 
     @Override
-    public void check(Basket basket) {
+    public void check(Basket basket, DiscountCollector discountCollector) {
         BasketQuery query = new BasketQuery(basket);
         int tinsOfSoup = query.quantity("soup");
         if (tinsOfSoup > 1) {
             int loavesToDiscount = tinsOfSoup / 2;
             Product bread = productRepository.findByName("bread");
+            discountCollector.add(new HalfPriceDiscount(bread, loavesToDiscount));
         }
     }
 }

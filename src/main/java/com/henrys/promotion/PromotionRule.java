@@ -4,5 +4,5 @@ import com.henrys.basket.Basket;
 
 public interface PromotionRule {
 
-    void check(Basket basket);
+    void check(Basket basket, DiscountCollector discountCollector);
 }

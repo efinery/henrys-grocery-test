@@ -1,7 +1,6 @@
 package com.henrys;
 
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 
 import java.time.LocalDate;
@@ -27,7 +26,6 @@ public class BasketTotallerTest {
         assertEquals(285, total);
     }
 
-    @Ignore
     @Test
     public void should_discount_bread_with_2_soup() throws Exception {
         List<String> products = newBasket().withSoup(2).withBread().build();
