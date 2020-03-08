@@ -10,6 +10,10 @@ public class ProductRepository {
     }
 
     public Product findByName(String productName) {
-        return products.get(productName);
+        Product product = products.get(productName);
+        if (product == null) {
+            throw new NoSuchProductException(productName);
+        }
+        return product;
     }
 }
