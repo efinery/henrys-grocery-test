@@ -27,7 +27,7 @@ public class PromotionRepositoryFactory {
         Promotion applesTenPercentOff = new Promotion(
                 now().plusDays(3),
                 now().plusMonths(2).withDayOfMonth(1).minusDays(1),
-                null);
+                new TenPercentOffApplesPromotionRule(productRepository));
 
         promotions.add(halfPriceBreadForTwoSoups);
         promotions.add(applesTenPercentOff);

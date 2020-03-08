@@ -35,4 +35,13 @@ public class BasketTotallerTest {
         assertEquals(170, total);
     }
 
+    @Test
+    public void should_discount_apples() throws Exception {
+        List<String> products = newBasket().withApple().build();
+
+        int total = totaller.total(products, LocalDate.now().plusDays(3));
+
+        assertEquals(9, total);
+    }
+
 }

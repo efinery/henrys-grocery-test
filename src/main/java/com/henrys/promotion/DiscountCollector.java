@@ -1,5 +1,7 @@
 package com.henrys.promotion;
 
+import com.henrys.basket.Basket;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -10,10 +12,10 @@ public class DiscountCollector {
         this.discounts.add(discount);
     }
 
-    public int totalDiscount() {
+    public int totalDiscount(Basket basket) {
         int total = 0;
         for (Discount discount : discounts) {
-            total += discount.calculateDiscount();
+            total += discount.calculateDiscount(basket);
         }
         return total;
     }

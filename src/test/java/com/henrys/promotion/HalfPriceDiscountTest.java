@@ -9,20 +9,30 @@ import org.junit.Test;
 import static org.junit.Assert.assertEquals;
 
 public class HalfPriceDiscountTest {
-    private HalfPriceDiscount halfPriceDiscount;
+    private ProductRepository productRepository;
 
     @Before
     public void setUp() throws Exception {
-        ProductRepository productRepository = new ProductRepositoryFactory().create();
-        Product bread = productRepository.findByName("bread");
-        halfPriceDiscount = new HalfPriceDiscount(bread, 1);
+        productRepository = new ProductRepositoryFactory().create();
     }
 
     @Test
-    public void calculateDiscount() throws Exception {
-        int discount = halfPriceDiscount.calculateDiscount();
+    public void should_discount_one_loaf() throws Exception {
+        int discount = discountLoaves(1);
 
         assertEquals(40, discount);
     }
 
+    @Test
+    public void should_discount_two_loaves() throws Exception {
+        int discount = discountLoaves(2);
+
+        assertEquals(80, discount);
+    }
+
+    private int discountLoaves(int numberOfLoaves) {
+        Product bread = productRepository.findByName("bread");
+        HalfPriceDiscount discount = new HalfPriceDiscount(bread, numberOfLoaves);
+        return discount.calculateDiscount(null);
+    }
 }

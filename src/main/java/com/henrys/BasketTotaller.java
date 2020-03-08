@@ -30,7 +30,7 @@ public class BasketTotaller {
         }
 
         int basketTotal = calulateTotal(basket);
-        int discountTotal = discountCollector.totalDiscount();
+        int discountTotal = discountCollector.totalDiscount(basket);
         return basketTotal - discountTotal;
     }
 
