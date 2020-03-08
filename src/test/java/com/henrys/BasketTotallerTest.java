@@ -4,11 +4,13 @@ import com.henrys.product.NoSuchProductException;
 import com.henrys.product.ProductRepository;
 import com.henrys.product.ProductRepositoryFactory;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 
-import java.util.Arrays;
 import java.util.List;
 
+import static com.henrys.product.ProductListBuilder.newBasket;
+import static java.util.Arrays.asList;
 import static org.junit.Assert.assertEquals;
 
 public class BasketTotallerTest {
@@ -22,7 +24,7 @@ public class BasketTotallerTest {
 
     @Test
     public void should_calculate_one_of_everything() throws Exception {
-        List<String> products = Arrays.asList("soup", "bread", "milk", "apples");
+        List<String> products = newBasket().withSoup().withBread().withMilk().withApple().build();
 
         int total = totaller.total(products);
 
@@ -31,8 +33,19 @@ public class BasketTotallerTest {
 
     @Test(expected = NoSuchProductException.class)
     public void should_fail_for_unknown_product() throws Exception {
-        List<String> products = Arrays.asList("unknown");
+        List<String> products = asList("unknown");
 
         totaller.total(products);
     }
+
+    @Ignore
+    @Test
+    public void should_discount_bread_with_2_soup() throws Exception {
+        List<String> products = newBasket().withSoup(2).withBread().build();
+
+        int total = totaller.total(products);
+
+        assertEquals(170, total);
+    }
+
 }
